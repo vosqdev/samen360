@@ -1,0 +1,76 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default catch-all denies all operations
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && 
+             request.auth.token.email == "vosqdevelopment@gmail.com";
+    }
+
+    // projects collection: Admin only can create, write or update
+    match /projects/{projectId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // news collection: Admin only can manage news articles
+    match /news/{newsId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // markers collection: Anyone can read, submit feedback or like markers. Admin only can delete.
+    match /markers/{markerId} {
+      allow read: if true;
+      allow create: if true;
+      allow update: if true;
+      allow delete: if isAdmin();
+    }
+
+    // ideas collection: Anyone can read, submit. Admin only can delete.
+    match /ideas/{ideaId} {
+      allow read: if true;
+      allow create: if true;
+      allow update: if true;
+      allow delete: if isAdmin();
+    }
+
+    // survey_responses collection: Anyone can submit. Admin only can update or delete.
+    match /survey_responses/{responseId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if isAdmin();
+    }
+
+    // decisions collection: Anyone can read, Admin only can write.
+    match /decisions/{decisionId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // publications collection: Anyone can read, Admin only can write.
+    match /publications/{publicationId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // admins collection: Admin only can read and write.
+    match /admins/{adminId} {
+      allow read, write: if isAdmin();
+    }
+
+    // test connection validation route
+    match /test/connection {
+      allow read: if true;
+    }
+  }
+}

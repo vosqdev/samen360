@@ -1,0 +1,191 @@
+{
+  "entities": {
+    "Project": {
+      "title": "Participatie Project",
+      "description": "A participation project created by an administrator.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "city": { "type": "string" },
+        "description": { "type": "string" },
+        "address": { "type": "string" },
+        "polygon": { "type": "string" },
+        "lat": { "type": "number" },
+        "lng": { "type": "number" },
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "phase": { "type": "string" },
+        "phaseNumber": { "type": "number" },
+        "totalPhases": { "type": "number" },
+        "runningActions": { "type": "array" },
+        "openComments": { "type": "number" },
+        "planning": { "type": "string" },
+        "supportIndex": { "type": "number" },
+        "participants": { "type": "number" },
+        "views": { "type": "number" },
+        "image": { "type": "string" },
+        "surveyQuestions": { "type": "array" },
+        "createdAt": { "type": "timestamp" },
+        "updatedAt": { "type": "timestamp" }
+      },
+      "required": ["name", "city", "description", "lat", "lng", "x", "y", "phase", "phaseNumber", "totalPhases", "planning", "supportIndex", "participants", "views", "image", "createdAt", "updatedAt"]
+    },
+    "Marker": {
+      "title": "Interactive Map Marker",
+      "description": "A marker placed on the map by a participant.",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "author": { "type": "string" },
+        "authorId": { "type": "string" },
+        "role": { "type": "string" },
+        "text": { "type": "string" },
+        "date": { "type": "string" },
+        "category": { "type": "string" },
+        "sentiment": { "type": "string", "enum": ["positive", "neutral", "negative"] },
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "photoUrl": { "type": "string" },
+        "likes": { "type": "number" },
+        "createdAt": { "type": "timestamp" },
+        "updatedAt": { "type": "timestamp" }
+      },
+      "required": ["author", "authorId", "role", "text", "date", "category", "sentiment", "x", "y", "likes", "createdAt", "updatedAt"]
+    },
+    "Idea": {
+      "title": "Participatory Idea",
+      "description": "An idea submitted to the idea board.",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "author": { "type": "string" },
+        "authorId": { "type": "string" },
+        "role": { "type": "string" },
+        "title": { "type": "string" },
+        "text": { "type": "string" },
+        "date": { "type": "string" },
+        "category": { "type": "string" },
+        "upvotes": { "type": "number" },
+        "downvotes": { "type": "number" },
+        "loves": { "type": "number" },
+        "lightbulbs": { "type": "number" },
+        "clusteredId": { "type": "string" },
+        "clusteredTitle": { "type": "string" },
+        "createdAt": { "type": "timestamp" },
+        "updatedAt": { "type": "timestamp" }
+      },
+      "required": ["author", "authorId", "role", "title", "text", "date", "category", "upvotes", "downvotes", "loves", "lightbulbs", "createdAt", "updatedAt"]
+    },
+    "Admin": {
+      "title": "Admin Record",
+      "description": "Admins with access to edit everything.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "createdAt": { "type": "timestamp" }
+      },
+      "required": ["email", "createdAt"]
+    },
+    "News": {
+      "title": "News and Publications",
+      "description": "News articles and formal publications uploaded by admin.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "summary": { "type": "string" },
+        "content": { "type": "string" },
+        "date": { "type": "string" },
+        "category": { "type": "string" },
+        "image": { "type": "string" },
+        "readTime": { "type": "string" },
+        "documents": { "type": "array" },
+        "views": { "type": "number" },
+        "createdAt": { "type": "timestamp" }
+      },
+      "required": ["title", "summary", "content", "date", "category", "image"]
+    },
+    "Decision": {
+      "title": "Project Decision",
+      "description": "A formal project decision in a specific project phase.",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "phaseId": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "decisionText": { "type": "string" },
+        "motivation": { "type": "string" },
+        "underpinning": { "type": "string" },
+        "date": { "type": "string" },
+        "status": { "type": "string", "enum": ["Definitief", "Concept", "Ontwerp"] },
+        "version": { "type": "string" },
+        "relatedParticipation": { "type": "string" },
+        "documents": { "type": "array" },
+        "createdAt": { "type": "timestamp" },
+        "updatedAt": { "type": "timestamp" }
+      },
+      "required": ["projectId", "phaseId", "title", "category", "decisionText", "motivation", "underpinning", "date", "status", "version", "relatedParticipation", "documents", "createdAt", "updatedAt"]
+    },
+    "Publication": {
+      "title": "Phase Publication Document",
+      "description": "A document or formal publication uploaded by an admin.",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "phaseId": { "type": "string" },
+        "title": { "type": "string" },
+        "fileName": { "type": "string" },
+        "fileSize": { "type": "string" },
+        "downloadUrl": { "type": "string" },
+        "uploadedBy": { "type": "string" },
+        "createdAt": { "type": "timestamp" }
+      },
+      "required": ["projectId", "phaseId", "title", "fileName", "createdAt"]
+    },
+    "SurveyResponse": {
+      "title": "Survey Response",
+      "description": "User response to local survey questions.",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "answers": { "type": "array" },
+        "createdAt": { "type": "timestamp" }
+      },
+      "required": ["projectId", "answers", "createdAt"]
+    }
+  },
+  "firestore": {
+    "projects/{projectId}": {
+      "schema": "Project",
+      "description": "Participatie projects managed dynamically."
+    },
+    "markers/{markerId}": {
+      "schema": "Marker",
+      "description": "Map markers."
+    },
+    "ideas/{ideaId}": {
+      "schema": "Idea",
+      "description": "User submitted ideas."
+    },
+    "admins/{adminId}": {
+      "schema": "Admin",
+      "description": "Admins with access to edit everything."
+    },
+    "news/{newsId}": {
+      "schema": "News",
+      "description": "News articles and official publications."
+    },
+    "decisions/{decisionId}": {
+      "schema": "Decision",
+      "description": "Official project decisions per phase."
+    },
+    "publications/{publicationId}": {
+      "schema": "Publication",
+      "description": "Official publication documents per phase."
+    },
+    "survey_responses/{responseId}": {
+      "schema": "SurveyResponse",
+      "description": "User choices for each project's questions."
+    }
+  }
+}
